@@ -240,21 +240,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		2C038CBB1BC3FF240006304B /* vw-validate.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = "vw-validate.html"; sourceTree = "<group>"; };
-		2C038CBC1BC3FF240006304B /* csv2vw */ = {isa = PBXFileReference; lastKnownFileType = text.script.perl; path = csv2vw; sourceTree = "<group>"; };
-		2C038CBD1BC3FF240006304B /* logistic */ = {isa = PBXFileReference; lastKnownFileType = text.script.perl; path = logistic; sourceTree = "<group>"; };
-		2C038CBE1BC3FF240006304B /* new_version */ = {isa = PBXFileReference; lastKnownFileType = text; path = new_version; sourceTree = "<group>"; };
-		2C038CBF1BC3FF240006304B /* vw-convergence */ = {isa = PBXFileReference; lastKnownFileType = text.script.perl; path = "vw-convergence"; sourceTree = "<group>"; };
-		2C038CC01BC3FF240006304B /* vw-csv2bin */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = "vw-csv2bin"; sourceTree = "<group>"; };
-		2C038CC11BC3FF240006304B /* vw-doc2lda */ = {isa = PBXFileReference; lastKnownFileType = text.script.perl; path = "vw-doc2lda"; sourceTree = "<group>"; };
-		2C038CC21BC3FF240006304B /* vw-hypersearch */ = {isa = PBXFileReference; lastKnownFileType = text; path = "vw-hypersearch"; sourceTree = "<group>"; };
-		2C038CC31BC3FF240006304B /* vw-lda */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = "vw-lda"; sourceTree = "<group>"; };
-		2C038CC41BC3FF240006304B /* vw-regr */ = {isa = PBXFileReference; lastKnownFileType = text; path = "vw-regr"; sourceTree = "<group>"; };
-		2C038CC51BC3FF240006304B /* vw-top-errors */ = {isa = PBXFileReference; lastKnownFileType = text.script.perl; path = "vw-top-errors"; sourceTree = "<group>"; };
-		2C038CC61BC3FF240006304B /* vw-varinfo */ = {isa = PBXFileReference; lastKnownFileType = text.script.perl; path = "vw-varinfo"; sourceTree = "<group>"; };
-		2C038CC71BC3FF240006304B /* vw2csv */ = {isa = PBXFileReference; lastKnownFileType = text.script.perl; path = vw2csv; sourceTree = "<group>"; };
-		2C038CC81BC3FF240006304B /* active_interactor.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = active_interactor.py; sourceTree = "<group>"; };
-		2C038CCA1BC7A5700006304B /* vw-format.pl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.perl; path = "vw-format.pl"; sourceTree = "<group>"; };
+		2C038CCF1BC7C43E0006304B /* demo */ = {isa = PBXFileReference; lastKnownFileType = folder; name = demo; path = ../demo; sourceTree = "<group>"; };
+		2C038CD01BC7C4450006304B /* utl */ = {isa = PBXFileReference; lastKnownFileType = folder; name = utl; path = ../utl; sourceTree = "<group>"; };
 		2CBCB2901BAAC707006C673F /* libvowpal_wabbit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libvowpal_wabbit.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CBCB29F1BAAC780006C673F /* accumulate.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = accumulate.cc; sourceTree = "<group>"; };
 		2CBCB2A01BAAC780006C673F /* accumulate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = accumulate.h; sourceTree = "<group>"; };
@@ -427,34 +414,12 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		2C038CBA1BC3FEFB0006304B /* utils */ = {
-			isa = PBXGroup;
-			children = (
-				2C038CCA1BC7A5700006304B /* vw-format.pl */,
-				2C038CBB1BC3FF240006304B /* vw-validate.html */,
-				2C038CBC1BC3FF240006304B /* csv2vw */,
-				2C038CBD1BC3FF240006304B /* logistic */,
-				2C038CBE1BC3FF240006304B /* new_version */,
-				2C038CBF1BC3FF240006304B /* vw-convergence */,
-				2C038CC01BC3FF240006304B /* vw-csv2bin */,
-				2C038CC11BC3FF240006304B /* vw-doc2lda */,
-				2C038CC21BC3FF240006304B /* vw-hypersearch */,
-				2C038CC31BC3FF240006304B /* vw-lda */,
-				2C038CC41BC3FF240006304B /* vw-regr */,
-				2C038CC51BC3FF240006304B /* vw-top-errors */,
-				2C038CC61BC3FF240006304B /* vw-varinfo */,
-				2C038CC71BC3FF240006304B /* vw2csv */,
-				2C038CC81BC3FF240006304B /* active_interactor.py */,
-			);
-			name = utils;
-			path = ../utl;
-			sourceTree = "<group>";
-		};
 		2CBCB2871BAAC707006C673F = {
 			isa = PBXGroup;
 			children = (
+				2C038CD01BC7C4450006304B /* utl */,
+				2C038CCF1BC7C43E0006304B /* demo */,
 				2CBCB4661BAAFDE8006C673F /* README.text */,
-				2C038CBA1BC3FEFB0006304B /* utils */,
 				2CBCB29E1BAAC720006C673F /* vowpalwabbit */,
 				2CBCB2911BAAC707006C673F /* Products */,
 			);
