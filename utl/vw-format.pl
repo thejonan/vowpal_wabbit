@@ -31,7 +31,7 @@ use Getopt::Long;
 use Scalar::Util qw(looks_like_number);
 use List::Util qw(first);
 
-our ($o_verbose, $o_help, $o_header, $o_namespace, $o_tag, $o_prefix, $o_label, $o_exclude, $o_split, $o_dense, $o_output);
+our ($o_verbose, $o_help, $o_header, $o_namespace, $o_tag, $o_prefix, $o_label, $o_exclude, $o_split, $o_dense, $o_output, $o_libsvm);
 
 my $FieldSep = qr{[,\t]};
 my $ExcludePat = qr/^\s+$/;    # Match all empty feature names
@@ -65,7 +65,8 @@ sub usage {
         --split <column>         column name (or index) to be used as a dataset
                                  splitting factor
         --dense                  puts all values, even zeroes. Off by default.
-        --output <filename>      output files used with conjunction of --split.
+        --output <filename>      output files used with conjunction of --split
+        --svm                    outut is in libSVM format instead of vw's
         --delimiter <delimiter>  explicitly specify field separator
                                  (perl-regexp). Default is: '$FieldSep'
 
@@ -112,6 +113,7 @@ sub init {
                 'split=s' => \$o_split,
                 'dense' => \$o_dense,
                 'output=s' => \$o_output,
+                'svm' => \$o_libsvm,
                 'delimiter=s' => \$FieldSep
     ) or usage();
 
@@ -130,6 +132,9 @@ sub init {
     verbose("Outputing dense matrix\n") if (defined $o_dense);
     verbose("Output file(s) name: %s\n", $o_output) if (defined $o_output);
     verbose("Column separator: %s\n", $FieldSep);
+    
+    die ("Cannot have both libSVM output and namespaces!\n") if ($o_libsvm and defined $o_namespace);
+    verbose("Using libSVM output format\n") if ($o_libsvm);
     
     die ("Splitting asked, but no output is provided!\n") if ((defined $o_split and !defined($o_output)) or (!defined($o_split) and defined($o_output)));
 }
@@ -216,7 +221,14 @@ sub outputHandle($) {
     
     return $SplitFiles{$split} if (exists $SplitFiles{$split});
     
-    my $fname = $o_output . '.' . $split . '.vw';
+    my $fname = $o_output . '.' . $split;
+    if ($o_libsvm) {
+        $fname .= '.svm';
+    }
+    else {
+        $fname .= '.vw';
+    }
+    
     open (my $ff, ">", $fname) or die ("Failed to open split-output: $fname");
     verbose("New dataset output openned: %s\n", $split);
     $SplitFiles{$split} = $ff;
@@ -272,7 +284,13 @@ while (<>) {
     my $tag = defined $TagCol ? $RowFeatures[$TagCol] : $LineNo;
     $tag = $o_prefix . $tag if (defined $o_prefix);
     
-    printf $fh "%s %s", $label, $tag;
+    if ($o_libsvm) {
+        printf $fh "%s ", $label;
+    }
+    else {
+        printf $fh "%s %s", $label, $tag;
+    }
+    
     foreach my $ns (keys %Namespaces) {
         my $nsput = 0;
         my $sep = undef;
@@ -284,7 +302,7 @@ while (<>) {
             next if (defined($TagCol) and $i == $TagCol);
             next if (defined($SplitCol) and $i == $SplitCol);
             
-            unless (looks_like_number($val)) {
+            unless (looks_like_number($val) or $o_libsvm) {
                 $sep = '=';
             }
             elsif (defined($o_dense) or $val != 0) {
@@ -294,12 +312,17 @@ while (<>) {
                 next;
             }
             
-            unless ($nsput) {
+            unless ($nsput or $o_libsvm) {
                 printf $fh "|%s ", $ns;
                 $nsput = 1;
             }
             
-            printf $fh "%s%s%s ", $FeatureNames[$i], $sep, $val;
+            if ($o_libsvm) {
+                printf $fh "%d:%s ", $i + 1, $val;
+            }
+            else {
+                printf $fh "%s%s%s ", $FeatureNames[$i], $sep, $val;
+            }
         }
     }
     
